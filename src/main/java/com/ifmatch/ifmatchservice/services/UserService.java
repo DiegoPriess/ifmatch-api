@@ -32,13 +32,21 @@ public class UserService {
     }
 
     public User update(@NotNull final User user) {
-        Assert.notNull(user.getId(), "Id deve ser informado");
+        Assert.notNull(user.getIdUser(), "Id deve ser informado");
         return repository.save(User.builder()
-                            .id(user.getId())
+                            .idUser(user.getIdUser())
                             .email(user.getEmail())
                             .password(user.getPassword())
                             .status(user.getStatus())
                             .profileImg(user.getProfileImg())
+                            .build());
+    }
+
+    public void chageStatus(final Long id, final UserStatus status) {
+        Assert.notNull(getById(id), "Usuário não encontrado");
+        repository.save(User.builder()
+                            .idUser(id)
+                            .status(status)
                             .build());
     }
 

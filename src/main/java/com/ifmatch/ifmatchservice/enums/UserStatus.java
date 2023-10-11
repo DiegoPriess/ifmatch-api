@@ -3,8 +3,6 @@ package com.ifmatch.ifmatchservice.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.Serializable;
-
 @AllArgsConstructor
 public enum UserStatus {
 
