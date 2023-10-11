@@ -17,7 +17,7 @@ public class FaceMatchedConsumer {
     }
 
     final UserService service;
-    private static final String topic = "ECOMMERCE_NEW_ORDER";
+    private static final String topic = "FACE_MATCHED";
 
     @KafkaListener(topics = topic)
     private void changeUserStatus(@Payload String id, Acknowledgment ack) {
