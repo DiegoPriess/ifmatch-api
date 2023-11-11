@@ -5,10 +5,13 @@ import com.ifmatch.ifmatchservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -43,10 +46,8 @@ public class UserController {
         return ResponseEntity.ok(service.authenticate(email, password));
     }
 
-    @GetMapping("/list/{page}/{size}")
-    public ResponseEntity<Page<User>> list(@PathVariable Integer page,
-                                           @PathVariable Integer size,
-                                           @RequestParam(value = "name", required = false) String name) {
-        return ResponseEntity.ok(service.list(PageRequest.of(page, size), name));
+    @GetMapping
+    public ResponseEntity<List<User>> list() {
+        return ResponseEntity.ok(service.list());
     }
 }

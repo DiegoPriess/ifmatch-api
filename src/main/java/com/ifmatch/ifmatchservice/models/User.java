@@ -1,14 +1,17 @@
 package com.ifmatch.ifmatchservice.models;
 
 import com.ifmatch.ifmatchservice.enums.UserStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,6 +33,7 @@ public class User {
     @Column(name = "status")
     private UserStatus status;
 
-    @Column(name = "profile_img")
-    private byte[] profileImg;
+    @Lob
+    @Column(name = "profile_img", columnDefinition = "LONGBLOB")
+    private String profileImg;
 }

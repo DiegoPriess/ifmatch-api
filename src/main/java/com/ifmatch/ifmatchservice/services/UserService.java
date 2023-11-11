@@ -3,13 +3,12 @@ package com.ifmatch.ifmatchservice.services;
 import com.ifmatch.ifmatchservice.enums.UserStatus;
 import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.repositories.UserRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,31 +22,19 @@ public class UserService {
     final UserRepository repository;
 
     public User create(@NotNull final User user) {
-        return repository.save(User.builder()
-                            .email(user.getEmail())
-                            .password(user.getPassword())
-                            .status(UserStatus.FORA_CLINICA)
-                            .profileImg(user.getProfileImg())
-                            .build());
+        return repository.save(user);
     }
 
     public User update(@NotNull final User user) {
         Assert.notNull(user.getIdUser(), "Id deve ser informado");
-        return repository.save(User.builder()
-                            .idUser(user.getIdUser())
-                            .email(user.getEmail())
-                            .password(user.getPassword())
-                            .status(user.getStatus())
-                            .profileImg(user.getProfileImg())
-                            .build());
+        return repository.save(user);
     }
 
     public void chageStatus(final Long id, final UserStatus status) {
-        Assert.notNull(getById(id), "Usuário não encontrado");
-        repository.save(User.builder()
-                            .idUser(id)
-                            .status(status)
-                            .build());
+        Optional<User> user = getById(id);
+        Assert.isTrue(user.isPresent(), "Usuário não encontrado");
+        user.get().setStatus(status);
+        repository.save(user.get());
     }
 
     public Optional<User> getById(@NotNull final Long id) {
@@ -60,7 +47,7 @@ public class UserService {
         return userFound;
     }
 
-    public Page<User> list(@NotNull Pageable pageable, String name) {
-        return name == null ? repository.findAll(pageable) : repository.findAllByNameContaining(name, pageable);
+    public List<User> list() {
+        return repository.findAll();
     }
 }
