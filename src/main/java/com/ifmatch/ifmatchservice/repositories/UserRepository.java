@@ -11,5 +11,4 @@ import javax.validation.constraints.NotNull;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmailAndPassword(@NotNull final String email, @NotNull final String password);
-    Page<User> findAllByNameContaining(@NotNull String name, @NotNull Pageable pageable);
 }

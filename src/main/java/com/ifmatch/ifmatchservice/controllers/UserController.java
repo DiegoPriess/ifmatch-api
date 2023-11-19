@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin
 @RequestMapping("user")
 public class UserController {
 

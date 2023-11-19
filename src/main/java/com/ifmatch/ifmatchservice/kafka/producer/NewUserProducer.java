@@ -1,4 +1,4 @@
-package com.ifmatch.ifmatchservice.producer;
+package com.ifmatch.ifmatchservice.kafka.producer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

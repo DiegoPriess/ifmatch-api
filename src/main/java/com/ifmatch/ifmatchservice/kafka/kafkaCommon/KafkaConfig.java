@@ -1,4 +1,4 @@
-package com.ifmatch.ifmatchservice.kafkaCommon;
+package com.ifmatch.ifmatchservice.kafka.kafkaCommon;
 
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

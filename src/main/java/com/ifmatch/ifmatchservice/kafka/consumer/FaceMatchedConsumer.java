@@ -1,4 +1,4 @@
-package com.ifmatch.ifmatchservice.consumer;
+package com.ifmatch.ifmatchservice.kafka.consumer;
 
 import com.ifmatch.ifmatchservice.enums.UserStatus;
 import com.ifmatch.ifmatchservice.services.UserService;
