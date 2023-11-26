@@ -1,7 +1,5 @@
 package com.ifmatch.ifmatchservice.kafka.kafkaCommon;
 
-import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;

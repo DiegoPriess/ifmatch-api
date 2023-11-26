@@ -1,10 +1,7 @@
 package com.ifmatch.ifmatchservice.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.google.gson.annotations.SerializedName;
-import com.ifmatch.ifmatchservice.models.User;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.HashMap;

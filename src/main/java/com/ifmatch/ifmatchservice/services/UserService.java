@@ -1,8 +1,8 @@
 package com.ifmatch.ifmatchservice.services;
 
 import com.ifmatch.ifmatchservice.enums.UserStatus;
-import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.kafka.producer.NewUserProducer;
+import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.repositories.UserRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
