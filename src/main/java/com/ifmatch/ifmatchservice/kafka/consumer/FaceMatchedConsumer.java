@@ -21,7 +21,7 @@ public class FaceMatchedConsumer {
 
     @KafkaListener(topics = topic)
     private void changeUserStatus(@Payload String id, Acknowledgment ack) {
-        service.chageStatus(Long.parseLong(id), UserStatus.AGUARDANDO_ATENDIMENTO);
+        service.changeStatus(Long.parseLong(id), UserStatus.AGUARDANDO_ATENDIMENTO);
         ack.acknowledge();
     }
 }

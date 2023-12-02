@@ -3,15 +3,16 @@ package com.ifmatch.ifmatchservice.controllers;
 import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -22,28 +23,28 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody User user) {
-        return ResponseEntity.ok(service.create(user));
+    public ResponseEntity<Object> create(@RequestBody User users) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(users));
     }
 
     @PutMapping
-    public ResponseEntity<Object> update(@RequestBody User user) {
-        return ResponseEntity.ok(service.update(user));
+    public ResponseEntity<Object> update(@RequestBody User users) {
+        return ResponseEntity.ok(service.update(users));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getDetails(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getById(id));
-    }
-
-    @GetMapping("/auth/{email}/{password}")
-    public ResponseEntity<User> authenticate(@PathVariable String email,
-                                             @PathVariable String password) {
-        return ResponseEntity.ok(service.authenticate(email, password));
+    @GetMapping("/{email}")
+    public ResponseEntity<Optional<User>> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(service.getByEmail(email));
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> list() {
-        return ResponseEntity.ok(service.list());
+    public List<User> list() {
+        return service.list();
+    }
+
+    @GetMapping("/{page}/{size}")
+    public Page<User> listPage(@PathVariable Integer page,
+                               @PathVariable Integer size) {
+        return service.listPage(page, size);
     }
 }

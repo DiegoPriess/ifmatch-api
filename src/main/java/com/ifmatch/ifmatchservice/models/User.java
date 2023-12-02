@@ -13,27 +13,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_user")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idUser;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "status")
     private UserStatus status;
-
     @Lob
-    @Column(name = "profile_img", columnDefinition = "LONGBLOB")
-    private String profileImg;
+    private byte[] profileImg;
 }

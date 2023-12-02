@@ -6,13 +6,17 @@ import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.repositories.UserRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -26,6 +30,7 @@ public class UserService {
     final NewUserProducer newUserProducer;
 
     public User create(@NotNull final User user) {
+        Assert.isTrue(this.getByEmail(user.getEmail()).isEmpty(), "Já existe um usuário cadastrado com o email informado.");
         final User userCreated = repository.save(user);
         newUserProducer.sendEvent();
         return userCreated;
@@ -33,27 +38,30 @@ public class UserService {
 
     public User update(@NotNull final User user) {
         Assert.notNull(user.getIdUser(), "Id deve ser informado");
+        Assert.isTrue(this.getById(user.getIdUser()).isPresent(), "Usuário não encontrado");
         return repository.save(user);
     }
 
-    public void chageStatus(final Long id, final UserStatus status) {
-        Optional<User> user = getById(id);
+    public void changeStatus(final Long id, final UserStatus status) {
+        final Optional<User> user = getById(id);
         Assert.isTrue(user.isPresent(), "Usuário não encontrado");
         user.get().setStatus(status);
-        repository.save(user.get());
+        User userChanged = repository.save(user.get());
     }
 
     public Optional<User> getById(@NotNull final Long id) {
         return repository.findById(id);
     }
 
-    public User authenticate(@NotNull final String email, @NotNull final String password) {
-        User userFound = repository.findByEmailAndPassword(email, password);
-        Assert.notNull(userFound, "Usuário ou senha incorreta");
-        return userFound;
+    public Optional<User> getByEmail(final String email) {
+        return repository.findByEmail(email);
     }
 
     public List<User> list() {
         return repository.findAll();
+    }
+
+    public Page<User> listPage(final Integer page, final Integer size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 }
