@@ -46,7 +46,7 @@ public class UserService {
         final Optional<User> user = getById(id);
         Assert.isTrue(user.isPresent(), "Usuário não encontrado");
         user.get().setStatus(status);
-        User userChanged = repository.save(user.get());
+        repository.save(user.get());
     }
 
     public Optional<User> getById(@NotNull final Long id) {
