@@ -1,7 +1,6 @@
 package com.ifmatch.ifmatchservice.services;
 
 import com.ifmatch.ifmatchservice.enums.UserStatus;
-import com.ifmatch.ifmatchservice.kafka.producer.NewUserProducer;
 import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.repositories.UserRepository;
 import com.sun.istack.NotNull;
@@ -20,20 +19,19 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    public UserService(final UserRepository repository,
-                       final NewUserProducer newUserProducer) {
+    public UserService(final UserRepository repository, final ConfService confService) {
         this.repository = repository;
-        this.newUserProducer = newUserProducer;
+        this.confService = confService;
     }
 
-    final UserRepository repository;
-    final NewUserProducer newUserProducer;
+    private final UserRepository repository;
+    private final ConfService confService;
 
     public User create(@NotNull final User user) {
         Assert.isTrue(this.getByEmail(user.getEmail()).isEmpty(), "Já existe um usuário cadastrado com o email informado.");
-        final User userCreated = repository.save(user);
-        newUserProducer.sendEvent();
-        return userCreated;
+        final User newUser = repository.save(user);
+        confService.update(Boolean.TRUE);
+        return newUser;
     }
 
     public User update(@NotNull final User user) {

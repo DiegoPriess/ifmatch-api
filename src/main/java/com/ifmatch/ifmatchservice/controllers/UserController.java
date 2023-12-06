@@ -1,5 +1,6 @@
 package com.ifmatch.ifmatchservice.controllers;
 
+import com.ifmatch.ifmatchservice.enums.UserStatus;
 import com.ifmatch.ifmatchservice.models.User;
 import com.ifmatch.ifmatchservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class UserController {
     @PutMapping
     public ResponseEntity<Object> update(@RequestBody User users) {
         return ResponseEntity.ok(service.update(users));
+    }
+
+    @GetMapping("/change-status/{id}/{status}")
+    public ResponseEntity changeStatus(@PathVariable final Long id,
+                                       @PathVariable final UserStatus status) {
+        service.changeStatus(id, status);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{email}")

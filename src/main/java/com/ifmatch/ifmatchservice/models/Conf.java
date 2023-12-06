@@ -1,6 +1,5 @@
 package com.ifmatch.ifmatchservice.models;
 
-import com.ifmatch.ifmatchservice.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +12,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
-public class User {
-
+@Table(name = "conf")
+public class Conf {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long idUser;
-    private String name;
-    private String email;
-    private String password;
-    private UserStatus status;
-    @Lob
-    private byte[] profileImg;
+    private Long idSistem;
+    private Boolean needUpdateUsers;
 }
