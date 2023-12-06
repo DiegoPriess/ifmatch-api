@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Table(name = "conf")
 public class Conf {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idSistem;
     private Boolean needUpdateUsers;
 }
